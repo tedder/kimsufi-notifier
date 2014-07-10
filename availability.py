@@ -3,8 +3,17 @@
 import requests
 import sys
 
-page = requests.get('https://ws.ovh.com/dedicated/r2/ws.dispatcher/getAvailability2')
-data = page.json()
+try:
+  page = requests.get('https://ws.ovh.com/dedicated/r2/ws.dispatcher/getAvailability2')
+except ConnectionError:
+  # silently fail if the server fails
+  sys.exit()
+
+try:
+  data = page.json()
+except ValueError:
+  # silently fail if the data is bad
+  sys.exit()
 
 # silently fail if the data is bad
 if not data:
