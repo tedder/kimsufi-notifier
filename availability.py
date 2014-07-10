@@ -5,7 +5,7 @@ import sys
 
 try:
   page = requests.get('https://ws.ovh.com/dedicated/r2/ws.dispatcher/getAvailability2')
-except ConnectionError:
+except requests.exceptions.ConnectionError:
   # silently fail if the server fails
   sys.exit()
 
