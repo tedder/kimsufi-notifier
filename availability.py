@@ -19,7 +19,11 @@ except ValueError:
 if not data:
   sys.exit()
 
-sk1 = [x for x in data['answer']['availability'] if x['reference'] == '142sk1'][0]
+try:
+  sk1 = [x for x in data['answer']['availability'] if x['reference'] == '150sk10'][0]
+except TypeError:
+  # json failed, which is okay, I think it means no servers are available in any class.
+  sys.exit()
 bhs = [x for x in sk1['zones'] if x['zone'] == 'bhs'][0]
-if not bhs['availability'] == 'unavailable':
+if bhs['availability'] not in ['unavailable', 'unknown']:
   print bhs['availability']
