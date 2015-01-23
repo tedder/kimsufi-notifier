@@ -24,6 +24,6 @@ try:
 except TypeError:
   # json failed, which is okay, I think it means no servers are available in any class.
   sys.exit()
-bhs = [x for x in sk1['zones'] if x['zone'] == 'bhs'][0]
-if bhs['availability'] not in ['unavailable', 'unknown']:
-  print bhs['availability']
+for x in sk1['zones']:
+  if x['availability'] not in ['unavailable', 'unknown']:
+    print "zone: %s = %s" % (x['zone'], x['availability'])
